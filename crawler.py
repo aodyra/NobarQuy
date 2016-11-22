@@ -33,3 +33,4 @@ with open('data_nobar.txt', 'w') as outfile:
         dict_tweet['geo'] = dict_temp['geo']
         dict_tweet['coordinates'] = dict_temp['coordinates']
         outfile.write(json.dumps(dict_tweet))
+        outfile.write("\n")
