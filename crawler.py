@@ -21,6 +21,7 @@ while len(search_tweets) < max_tweets:
         if not new_tweets:
             break
         search_tweets.extend(new_tweets)
+        last_id = new_tweets[-1].id
     except tweepy.TweepError as e:
         break
 
