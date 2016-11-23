@@ -1,5 +1,6 @@
 import tweepy
 import json
+import xlsxwriter
 
 consumer_key = "mASc5bPjmxUd6Pwwnz7M7rPz0"
 consumer_secret = "TF2qhPSMefXLdWGV1AWHlyeg25lP9CEtRoxwAhg22dJGf8xNAu"
@@ -25,6 +26,7 @@ while len(search_tweets) < max_tweets:
     except tweepy.TweepError as e:
         break
 
+##### Simple Text #####
 with open('data_nobar.txt', 'w') as outfile:
     for tweet in search_tweets:
         dict_temp = json.loads(json.dumps(tweet._json))
@@ -35,3 +37,23 @@ with open('data_nobar.txt', 'w') as outfile:
         dict_tweet['coordinates'] = dict_temp['coordinates']
         outfile.write(json.dumps(dict_tweet))
         outfile.write("\n")
+
+##### Excel #####
+workbook = xlsxwriter.Workbook('data_nobar.xlsx')
+worksheet = workbook.add_worksheet()
+
+row = 0
+col = 0
+
+worksheet.write(row, col, 'Label')
+worksheet.write(row, col+1, 'Created at')
+worksheet.write(row, col+2, 'Text')
+
+row += 1
+
+for tweet in search_tweets:
+	worksheet.write(row, col+1, tweet.created_at)
+	worksheet.write(row, col+2, tweet.text)
+	row+=1
+
+workbook.close()
