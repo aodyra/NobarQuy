@@ -11,10 +11,13 @@ class JadwalBola(object):
         day = date.day
         month = date.month 
         year = date.year
+        print(day)
+        print(month)
+        print(year)
         link_schedule = "http://www.goal.com/id-ID/fixtures/{}-{}-{}?ICID=RE_CAL_2".format(year,month,day)
         r = requests.get(link_schedule)
         tree = html.fromstring(r.content)
-        schedule = tree.xpath("//td[@class=\"team\"]//span/text()")
+        schedule = tree.xpath('//table[@class="match-table "]//td[@class="team"]//span/text()')
         return schedule
 
 

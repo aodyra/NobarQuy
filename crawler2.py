@@ -10,21 +10,23 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+user_id = 'Lokasi_Nobar'
 
 max_tweets = 1000
-query="#infoNobar AND -#repost AND -filter:retweets AND -filter:replies"
 search_tweets = []
-last_id = -1
 while len(search_tweets) < max_tweets:
     count = max_tweets - len(search_tweets)
     try:
-        new_tweets = api.search(q=query, count=count, max_id=str(last_id - 1))
+        if count == max_tweets:
+            new_tweets = api.user_timeline(screen_name=user_id, count=count, include_rts=True)
+        else:
+            new_tweets = api.user_timeline(screen_name=user_id, count=count, include_rts=True, max_id=str(last_id-1))
         if not new_tweets:
             break
         search_tweets.extend(new_tweets)
         last_id = new_tweets[-1].id
     except tweepy.TweepError as e:
-        break
+        break 
 
 ##### Simple Text #####
 with open('data_nobar.txt', 'w') as outfile:
