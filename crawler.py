@@ -10,7 +10,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
-
+user_id = 'Lokasi_Nobar'
 max_tweets = 1000
 query="#infoNobar AND -#repost AND -filter:retweets AND -filter:replies"
 search_tweets = []
@@ -25,6 +25,21 @@ while len(search_tweets) < max_tweets:
         last_id = new_tweets[-1].id
     except tweepy.TweepError as e:
         break
+search_tweets2 = []
+last_id = -1
+while len(search_tweets2) < max_tweets:
+    count = max_tweets - len(search_tweets2)
+    try:
+        if count == max_tweets:
+            new_tweets = api.user_timeline(screen_name=user_id, count=count, include_rts=True)
+        else:
+            new_tweets = api.user_timeline(screen_name=user_id, count=count, include_rts=True, max_id=str(last_id-1))
+        if not new_tweets:
+            break
+        search_tweets2.extend(new_tweets)
+        last_id = new_tweets[-1].id
+    except tweepy.TweepError as e:
+        break
 
 ##### Simple Text #####
 with open('data_nobar.txt', 'w') as outfile:
@@ -33,27 +48,40 @@ with open('data_nobar.txt', 'w') as outfile:
         dict_tweet = {}
         dict_tweet['text'] = dict_temp['text']
         dict_tweet['created_at'] = dict_temp['created_at']
-        dict_tweet['geo'] = dict_temp['geo']
-        dict_tweet['coordinates'] = dict_temp['coordinates']
+        # dict_tweet['geo'] = dict_temp['geo']
+        # dict_tweet['coordinates'] = dict_temp['coordinates']
+        outfile.write(json.dumps(dict_tweet))
+        outfile.write("\n")
+    for tweet in search_tweets2:
+        dict_temp = json.loads(json.dumps(tweet._json))
+        dict_tweet = {}
+        dict_tweet['text'] = dict_temp['text']
+        dict_tweet['created_at'] = dict_temp['created_at']
+        # dict_tweet['geo'] = dict_temp['geo']
+        # dict_tweet['coordinates'] = dict_temp['coordinates']
         outfile.write(json.dumps(dict_tweet))
         outfile.write("\n")
 
 ##### Excel #####
-workbook = xlsxwriter.Workbook('data_nobar.xlsx')
-worksheet = workbook.add_worksheet()
+# workbook = xlsxwriter.Workbook('data_nobar.xlsx')
+# worksheet = workbook.add_worksheet()
 
-row = 0
-col = 0
+# row = 0
+# col = 0
 
-worksheet.write(row, col, 'Label')
-worksheet.write(row, col+1, 'Created at')
-worksheet.write(row, col+2, 'Text')
+# worksheet.write(row, col, 'Label')
+# worksheet.write(row, col+1, 'Created at')
+# worksheet.write(row, col+2, 'Text')
 
-row += 1
+# row += 1
 
-for tweet in search_tweets:
-	worksheet.write(row, col+1, tweet.created_at)
-	worksheet.write(row, col+2, tweet.text)
-	row+=1
+# for tweet in search_tweets:
+# 	worksheet.write(row, col+1, tweet.created_at)
+# 	worksheet.write(row, col+2, tweet.text)
+# 	row+=1
+# for tweet in search_tweets2:
+#     worksheet.write(row, col+1, tweet.created_at)
+#     worksheet.write(row, col+2, tweet.text)
+#     row+=1
 
-workbook.close()
+# workbook.close()
