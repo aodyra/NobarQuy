@@ -1,6 +1,6 @@
 import tweepy
 import json
-import xlsxwriter
+#import xlsxwriter
 
 consumer_key = "mASc5bPjmxUd6Pwwnz7M7rPz0"
 consumer_secret = "TF2qhPSMefXLdWGV1AWHlyeg25lP9CEtRoxwAhg22dJGf8xNAu"
@@ -12,7 +12,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 user_id = 'Lokasi_Nobar'
 max_tweets = 1000
-query="#infoNobar AND -#repost AND -filter:retweets AND -filter:replies"
+query="#infoNobar AND -#repost AND -filter:retweets AND -filter:replies -RT"
 search_tweets = []
 last_id = -1
 while len(search_tweets) < max_tweets:
