@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import testset.classifier.TweetPreprocessor;
+import twitter.crawler.TweetCrawler;
 import weka.access.WekaAccessor;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.RandomForest;
@@ -21,9 +22,9 @@ import weka.core.Instances;
 public class Main {
     
     public static void main (String[] args) throws IOException, Exception {
-        NobarQuy nq = new NobarQuy();
-        String filename = "nobar.txt";
-        String path = "model/nobar.model";
+        //NobarQuy nq = new NobarQuy();
+        //String filename = "nobar.txt";
+        //String path = "model/nobar.model";
         
 //        WekaAccessor accessor = new WekaAccessor();
 //        Instances trainset;
@@ -41,8 +42,12 @@ public class Main {
 //        List<String> nobarList = new ArrayList<>();
 //        nobarList = tw.convertTxtToStringList(filename);
 //        System.out.println(nobarList.size());
-        nq.loadModel();
-        nq.classifyTweetFromFile(filename);
+        //nq.loadModel();
+        //nq.classifyTweetFromFile(filename);
+        TweetCrawler tcrwl = new TweetCrawler();
+        for (String str : tcrwl.getJSON(100, "infonobar")) {
+            System.out.println(str);
+        }
     }
     
 }
