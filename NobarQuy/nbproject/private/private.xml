@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Kuliah/Semester%20VII/NLP/NobarQuy/sms-classifier/src/sms/classifier/SpamPreprocess.java</file>
-            <file>file:/D:/Kuliah/Semester%20VII/NLP/NobarQuy/sms-classifier/src/sms/classifier/SmsClassifier.java</file>
-            <file>file:/D:/Kuliah/Semester%20VII/NLP/NobarQuy/sms-classifier/src/sms/classifier/MapUtil.java</file>
-            <file>file:/D:/Kuliah/Semester%20VII/NLP/NobarQuy/sms-classifier/src/sms/eater/EatenTweets.java</file>
-            <file>file:/D:/Kuliah/Semester%20VII/NLP/NobarQuy/sms-classifier/src/sms/classifier/StringToWordProcessor.java</file>
+            <file>file:/C:/Users/User/Documents/Tugas/NobarQuy/NobarQuy/src/training/classifier/TrainingPreprocess.java</file>
+            <file>file:/C:/Users/User/Documents/Tugas/NobarQuy/NobarQuy/src/twitter/crawler/TweetCrawler.java</file>
         </group>
     </open-files>
 </project-private>

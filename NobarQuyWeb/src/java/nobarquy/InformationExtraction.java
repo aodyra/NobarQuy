@@ -8,6 +8,7 @@ package nobarquy;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import testset.classifier.NobarInformation;
+import testset.classifier.TweetPreprocessor;
 
 /**
  *
@@ -17,7 +18,7 @@ public class InformationExtraction {
     //TODO: List Regex buat ekstrak informasi: match, lokasi, sama date
     public static final String REGEX_MATCH = "\\w+\\s+((V|v)(S|s)|(x|X)|(v|V))\\s+\\w+";
     public static final String REGEX_PLACE = "(di|at|venue)\\s+\\w+";
-    public static final String REGEX_DATE = "(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu|mnggu|sbtu|mggu)[, (]*\\d{1,2}([- /\\.])?([a-zA-Z]+|\\d{1,2})([- /\\.])+\\d{0,4}\\)?";
+    public static final String REGEX_DATE = "(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu|mnggu|sbtu|mggu)?[, (]*\\d{1,2}[- /\\.]?([a-zA-Z]+|\\d{1,2})[- /\\.]?\\d{0,4}\\)?";
     public static final String REGEX_TIME = "\\d{1,2}[:\\.]\\d{1,2}";
     
     private NobarInformation nobarinfo;
@@ -27,7 +28,8 @@ public class InformationExtraction {
     
     public InformationExtraction(String tweet) {
         this.nobarinfo = new NobarInformation();
-        this.tweet = tweet;
+        TweetPreprocessor tp = new TweetPreprocessor();
+        this.tweet = tp.preprocessTweet(tweet);
     }
     
     public NobarInformation getNobarInfo() {
@@ -59,9 +61,9 @@ public class InformationExtraction {
         Matcher matcher = pattern.matcher(tweet);
         
         if (matcher.find()) {
-            extractedPlace = matcher.group(0);
+            extractedPlace = matcher.group(0).substring(3);
         } else {
-            extractedPlace = null;
+            extractedPlace = "null";
         }
         
         nobarinfo.setPlace(extractedPlace);
@@ -76,7 +78,7 @@ public class InformationExtraction {
         if (matcher.find()) {
             extractedDate = matcher.group(0);
         } else {
-            extractedDate = null;
+            extractedDate = "null";
         }
         
         nobarinfo.setDate(extractedDate);
@@ -91,7 +93,7 @@ public class InformationExtraction {
         if (matcher.find()) {
             extractedTime = matcher.group(0);
         } else {
-            extractedTime = null;
+            extractedTime = "null";
         }
         
         nobarinfo.setTime(extractedTime);

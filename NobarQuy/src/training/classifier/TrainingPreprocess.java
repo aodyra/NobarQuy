@@ -24,9 +24,9 @@ import java.util.regex.Pattern;
  */
 public class TrainingPreprocess {
     
-    public final static String REGEX_RTAT = "RT @\\S+";
-    public final static String REGEX_EMOTICON = "\\u\\S+";
-    public final static String REGEX_URL = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+    public final static String REGEX_RTAT = "RT @\\w+";
+    public final static String REGEX_EMOTICON = "\\\\u\\w+";
+    public final static String REGEX_URL = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_+.~#?&//=]*)";
    
     
     public TrainingPreprocess(){}

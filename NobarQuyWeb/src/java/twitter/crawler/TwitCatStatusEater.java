@@ -34,8 +34,8 @@ public class TwitCatStatusEater {
     public static String cleanText(String text) { 
         text = text.replace("\n", "\\n");
         text = text.replace("\t", "\\t");
-        text = text.replace("\\n", "");
-        text = text.replace("\\t", "");
+        text = text.replace("\\n", " ");
+        text = text.replace("\\t", " ");
         text = text.replace("\u26bd","#emotbola");
         return text;
     }
@@ -147,10 +147,10 @@ public class TwitCatStatusEater {
             System.out.println("Gagal");
             e.printStackTrace();
         }
-        for (Status s: twitter.getUserTimeline()){
+        //for (Status s: twitter.getUserTimeline()){
             // Insert the tweet
-            eatenTweets.add(new EatenTweets(s));
-        }
+        //    eatenTweets.add(new EatenTweets(s));
+        //}
         return eatenTweets;
     }
 

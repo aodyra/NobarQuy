@@ -38,7 +38,7 @@ public class TweetPreprocessor {
         TrainingPreprocess t = new TrainingPreprocess();
         sentence = sentence.replace("\\n", " ");
         sentence = t.replaceChars(REGEX_RTAT,sentence,"");
-        sentence = t.replaceChars(REGEX_EMOTICON,sentence,"");
+        sentence = t.replaceChars(REGEX_EMOTICON,sentence," ");
         sentence = t.replaceChars(REGEX_URL,sentence,"URL");
 
         //Replace emoticon bola

@@ -115,18 +115,18 @@ public class NobarQuy {
                 String place = nobarInfo.getPlace();
                 String date = nobarInfo.getDate();
                 String time = nobarInfo.getTime();
-                if ((match != null) && (place != null) && (date != null) && (time != null)) {
+                //if ((match != null) && (place != null) && (date != null) && (time != null)) {
                     record[1] = "Nobar";
                     JSONObject json = new JSONObject();
                     json.put("match",match);
                     json.put("place",place);
                     json.put("date",date);
                     json.put("time",time);
-                    json.put("tweet",tweet_text);
+                    json.put("text",tweet_text);
                     //TODO: Information Extraction, save in JSON
 
                     finalJSON.add(json);
-                }
+                //}
                 
                 
             } else {
