@@ -16,16 +16,18 @@ public class NobarInformation {
     private String match;
     private String place;
     private String date;
+    private String time;
     private String clubA;
     private String clubB;
     protected Instance instance;
     
     public NobarInformation(){}
     
-    public NobarInformation(String match, String place, String date) {
+    public NobarInformation(String match, String place, String date, String time) {
         this.match = match;
         this.place = place;
         this.date = date;
+        this.time = time;
     }
     
     //Getter
@@ -41,16 +43,24 @@ public class NobarInformation {
         return date;
     }
     
+    public String getTime() {
+        return time;
+    }
+    
     //Setter
     public void setMatch(String new_match) {
         this.match = new_match;
     }
     
     public void setPlace(String new_place) {
-        this.match = new_place;
+        this.place = new_place;
     }
     
     public void setDate(String new_date) {
-        this.match = new_date;
+        this.date = new_date;
+    }
+    
+    public void setTime(String new_time) {
+        this.time = new_time;
     }
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import testset.classifier.NobarClassifier;
+import testset.classifier.NobarInformation;
 import testset.classifier.TweetPreprocessor;
 import training.classifier.MapUtil;
 import training.classifier.StringToWordProcessor;
@@ -109,10 +110,18 @@ public class NobarQuy {
                 System.out.println("Nobar: " + tweet_text);
                 InformationExtraction ie = new InformationExtraction(tweet_text);
                 ie.extractAllNobarInfo();
-                if ((ie.getNobarInfo().getMatch() != null) && (ie.getNobarInfo().getPlace() != null) && (ie.getNobarInfo().getDate() != null)) {
+                NobarInformation nobarInfo = ie.getNobarInfo();
+                String match = nobarInfo.getMatch();
+                String place = nobarInfo.getPlace();
+                String date = nobarInfo.getDate();
+                String time = nobarInfo.getTime();
+                if ((match != null) && (place != null) && (date != null) && (time != null)) {
                     record[1] = "Nobar";
                     JSONObject json = new JSONObject();
-                    json.put("label","1");
+                    json.put("match",match);
+                    json.put("place",place);
+                    json.put("date",date);
+                    json.put("time",time);
                     json.put("tweet",tweet_text);
                     //TODO: Information Extraction, save in JSON
 

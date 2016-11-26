@@ -15,8 +15,10 @@ import testset.classifier.NobarInformation;
  */
 public class InformationExtraction {
     //TODO: List Regex buat ekstrak informasi: match, lokasi, sama date
-    public static final String REGEX_MATCH = "(.*)( vs )(.*)|(.*)( x )(.*)|(.*)( X )(.*)";
-    public static final String REGEX_PLACE = "(di +.*)|(at + .*)";
+    public static final String REGEX_MATCH = "\\w+\\s+((V|v)(S|s)|(x|X)|(v|V))\\s+\\w+";
+    public static final String REGEX_PLACE = "(di|at|venue)\\s+\\w+";
+    public static final String REGEX_DATE = "(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu|mnggu|sbtu|mggu)[, (]*\\d{1,2}([- /\\.])?([a-zA-Z]+|\\d{1,2})([- /\\.])+\\d{0,4}\\)?";
+    public static final String REGEX_TIME = "\\d{1,2}[:\\.]\\d{1,2}";
     
     private NobarInformation nobarinfo;
     private String tweet;
@@ -44,7 +46,7 @@ public class InformationExtraction {
         if (matcher.find()) {
             extractedMatch = matcher.group(0);
         } else {
-            extractedMatch = "Football Match, see Original Tweet";
+            extractedMatch = "null";
         }
         
         nobarinfo.setMatch(extractedMatch);
@@ -53,35 +55,52 @@ public class InformationExtraction {
     public void extractPlace() {
         String extractedPlace;
         
-        Pattern pattern = Pattern.compile(REGEX_MATCH);
+        Pattern pattern = Pattern.compile(REGEX_PLACE);
         Matcher matcher = pattern.matcher(tweet);
         
         if (matcher.find()) {
             extractedPlace = matcher.group(0);
         } else {
-            extractedPlace = "Place";
+            extractedPlace = null;
         }
         
-        nobarinfo.setMatch(extractedPlace);
+        nobarinfo.setPlace(extractedPlace);
     }
     
-    public void extractdate() {
+    public void extractDate() {
         String extractedDate;
         
-        Pattern pattern = Pattern.compile(REGEX_MATCH);
+        Pattern pattern = Pattern.compile(REGEX_DATE);
         Matcher matcher = pattern.matcher(tweet);
         
         if (matcher.find()) {
             extractedDate = matcher.group(0);
         } else {
-            extractedDate = "Place";
+            extractedDate = null;
         }
         
-        nobarinfo.setMatch(extractedDate);
+        nobarinfo.setDate(extractedDate);
+    }
+    
+    public void extractTime() {
+        String extractedTime;
+        
+        Pattern pattern = Pattern.compile(REGEX_TIME);
+        Matcher matcher = pattern.matcher(tweet);
+        
+        if (matcher.find()) {
+            extractedTime = matcher.group(0);
+        } else {
+            extractedTime = null;
+        }
+        
+        nobarinfo.setTime(extractedTime);
     }
     
     public void extractAllNobarInfo() {
         extractMatch();
         extractPlace();
+        extractDate();
+        extractTime();
     }
 }

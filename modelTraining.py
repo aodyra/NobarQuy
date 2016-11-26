@@ -26,7 +26,7 @@ def clean_text(text):
     text = re.sub(r"\\u\S+", "", text )
     return text
 
-filename = 'data_nobar2.json'
+filename = 'data/data_nobar2.json'
 nobar_list_text = []
 bukan_nobar_list_text = []
 with open(filename, "r") as fileopen:
