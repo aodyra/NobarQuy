@@ -34,6 +34,9 @@ public class TwitCatStatusEater {
     public static String cleanText(String text) { 
         text = text.replace("\n", "\\n");
         text = text.replace("\t", "\\t");
+        text = text.replace("\\n", "");
+        text = text.replace("\\t", "");
+        text = text.replace("\u26bd","#emotbola");
         return text;
     }
     /** * Retrieve the "bearer" token from Twitter in order to make application-authenticated calls. *

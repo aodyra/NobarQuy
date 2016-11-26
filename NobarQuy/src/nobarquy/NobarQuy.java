@@ -21,6 +21,7 @@ import testset.classifier.TweetPreprocessor;
 import training.classifier.MapUtil;
 import training.classifier.StringToWordProcessor;
 import training.classifier.TrainingClassifier;
+import twitter4j.JSONObject;
 
 /**
  *
@@ -49,15 +50,6 @@ public class NobarQuy {
         nobarList = tw.convertTxtToStringList(file);
         List<String[]> result = new ArrayList();
         
-//        for (String line : nobarList) {
-//            String result;
-//            System.out.println("Line: " + line);
-//            result = nobarClassifier.classifyUnseenData(line);
-//            System.out.println(result);
-//        }
-        
-        
-        
         for (int i=0; i< nobarList.size(); i++) {
             String[] record = new String[3];
             record[0] = nobarList.get(i);
@@ -68,6 +60,28 @@ public class NobarQuy {
             if(nobar.equals("1")) {
                 System.out.println("Nobar" + nobarList.get(i));
                 record[1] = "Nobar";
+                
+            } else {
+                record[1] = "Bukan";
+            }
+            result.add(record);
+        }
+    }
+    
+    public void classifyTweetFromJSON(ArrayList<JSONObject> tweets) throws Exception {
+        List<String[]> result = new ArrayList();
+        for (JSONObject tweet : tweets) {
+            String tweet_text = tweet.get("text").toString();
+            String[] record = new String[3];
+            record[0] = tweet_text;
+            
+            String nobar = nobarClassifier.classifyUnseenData(tweet_text);
+            //System.out.println("Hasil klasifikasi: " + nobar);
+            
+            if(nobar.equals("1")) {
+                System.out.println("Nobar: " + tweet_text);
+                record[1] = "Nobar";
+                //TODO: Information Extraction, save in JSON
                 
             } else {
                 record[1] = "Bukan";

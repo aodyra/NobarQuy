@@ -35,10 +35,10 @@ public class TweetPreprocessor {
         String stemmed;
         
         //Hapus \n, RT @, dan emoticon
-        TrainingPreprocess t = new TrainingPreprocess();
+        //TrainingPreprocess t = new TrainingPreprocess();
         sentence = sentence.replace("\\n", " ");
-        sentence = t.replaceChars(REGEX_RTAT,sentence,"");
-        sentence = t.replaceChars(REGEX_EMOTICON,sentence,"");
+        //sentence = t.replaceChars(REGEX_RTAT,sentence,"");
+        //sentence = t.replaceChars(REGEX_EMOTICON,sentence,"");
 
         //Replace emoticon bola
         sentence = sentence.replace("\\u26bd", "#emotbola");
