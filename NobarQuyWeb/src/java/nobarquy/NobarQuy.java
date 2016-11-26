@@ -34,6 +34,10 @@ public class NobarQuy {
         nobarClassifier = new NobarClassifier();
     }
     
+    public NobarQuy(String path) throws Exception {
+        nobarClassifier = new NobarClassifier(path);
+    }
+    
     public void buildModel() {
         TrainingClassifier tc = new TrainingClassifier();
         String arff = tc.generateARFF();

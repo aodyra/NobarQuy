@@ -1,9 +1,10 @@
-html {
-  background: #ff5656; }
-
 body {
-  text-align: center;
-  background: white; }
+  text-align: center; }
+
+.main-color {
+  background: #ff5656; }
+  .main-color body {
+    background: white; }
 
 .table thead tr {
   background: #ff5656;

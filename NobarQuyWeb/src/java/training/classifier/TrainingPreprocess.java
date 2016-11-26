@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  */
 public class TrainingPreprocess {
     
-    public final static String REGEX_RTAT = "RT @\\S+";
+    public final static String REGEX_RTAT = "^RT @\\S+";
     public final static String REGEX_EMOTICON = "\\u\\S+";
     public final static String REGEX_URL = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
    
@@ -46,8 +46,9 @@ public class TrainingPreprocess {
                 
                 //Hapus \n, RT @, dan emoticon
                 sentence = sentence.replace("\\n", " ");
-                //sentence = replaceChars(REGEX_RTAT,sentence,"");
+                sentence = replaceChars(REGEX_RTAT,sentence,"");
                 //sentence = replaceChars(REGEX_EMOTICON,sentence,"");
+                sentence = replaceChars(REGEX_URL,sentence,"URL");
                 
                 //Replace emoticon bola
                 sentence = sentence.replace("\\u26bd", "#emotbola");

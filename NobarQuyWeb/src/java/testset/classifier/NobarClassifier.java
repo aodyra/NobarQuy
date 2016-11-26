@@ -38,7 +38,16 @@ public class NobarClassifier {
         
         WekaAccessor accessor = new WekaAccessor();
         Instances trainset;
-        trainset = accessor.readARFF("dataset2.arff");
+        trainset = accessor.readARFF("D:\\Kuliah\\Semester VII\\NLP\\NobarQuy\\NobarQuyWeb\\dataset2.arff");
+        trainingInstances = trainset;
+    }
+    
+    public NobarClassifier(String path) throws Exception {
+        //Read ARFF File
+        
+        WekaAccessor accessor = new WekaAccessor();
+        Instances trainset;
+        trainset = accessor.readARFF(path);
         trainingInstances = trainset;
     }
     
@@ -88,8 +97,8 @@ public class NobarClassifier {
     
     public void loadModel() throws Exception {
         WekaAccessor wk = new WekaAccessor();
-        classifier = (RandomForest) wk.loadModel("model/nobar.model");
-        BufferedReader reader = new BufferedReader(new FileReader("dataset2.arff"));
+        classifier = (RandomForest) wk.loadModel("D:\\Kuliah\\Semester VII\\NLP\\NobarQuy\\NobarQuyWeb\\model\\nobar.model");
+        BufferedReader reader = new BufferedReader(new FileReader("D:\\Kuliah\\Semester VII\\NLP\\NobarQuy\\NobarQuyWeb\\dataset2.arff"));
         trainingInstances = new Instances(reader);
         trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);
         reader.close();

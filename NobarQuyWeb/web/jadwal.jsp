@@ -8,7 +8,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
-<html lang="en" xmlns:fb="http://ogp.me/ns/fb#">
+<html class="main-color" lang="en" xmlns:fb="http://ogp.me/ns/fb#">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,13 +35,13 @@
           <div class="col-xs-12 text-center">
             <%
                 NobarQuy nq = new NobarQuy();
-//                TweetCrawler tcrwl = new TweetCrawler();
-//                ArrayList<JSONObject> tweets = new ArrayList();
-//                ArrayList<JSONObject> nobarTweets = new ArrayList();
-//
-//                tweets = tcrwl.getJSON(100, "nobar vs");
-//                nq.loadModel();
-//                nobarTweets = nq.classifyTweetFunction(tweets);
+                TweetCrawler tcrwl = new TweetCrawler();
+                ArrayList<JSONObject> tweets = new ArrayList();
+                ArrayList<JSONObject> nobarTweets = new ArrayList();
+
+                tweets = tcrwl.getJSON(100, "nobar vs");
+                nq.loadModel();
+                nobarTweets = nq.classifyTweetFunction(tweets);
             %>
             <table class="table">
               <thead>
@@ -52,11 +52,16 @@
                 </tr>
               </thead>
               <tbody>
+                <% 
+                    for (JSONObject tweet : nobarTweets) { %>
+                %>
                 <tr>
                     <td>
-                        YEAY                        
+                        <%= tweet.get("text").toString() %>                       
                     </td>
                 </tr>
+                <% }
+                %>
               </tbody>
             </table>
           </div>

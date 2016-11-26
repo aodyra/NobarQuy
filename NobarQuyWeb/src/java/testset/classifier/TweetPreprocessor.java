@@ -23,9 +23,9 @@ import training.classifier.TrainingPreprocess;
  * @author ryanyonata
  */
 public class TweetPreprocessor {
-    public final static String REGEX_RTAT = "RT @\\S+";
-    public final static String REGEX_EMOTICON = "\\u\\S+";
-    public final static String REGEX_URL = "http\\S+";
+    public final static String REGEX_RTAT = "RT @\\\\w+";
+    public final static String REGEX_EMOTICON = "\\\\\\\\u\\\\w+";
+    public final static String REGEX_URL = "https?:\\\\/\\\\/(www\\\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_+.~#?&//=]*)";
     
     IndonesianSentenceFormalization formalizer = new IndonesianSentenceFormalization();
     IndonesianSentenceDetector detector = new IndonesianSentenceDetector();
@@ -35,10 +35,11 @@ public class TweetPreprocessor {
         String stemmed;
         
         //Hapus \n, RT @, dan emoticon
-        //TrainingPreprocess t = new TrainingPreprocess();
+        TrainingPreprocess t = new TrainingPreprocess();
         sentence = sentence.replace("\\n", " ");
-        //sentence = t.replaceChars(REGEX_RTAT,sentence,"");
-        //sentence = t.replaceChars(REGEX_EMOTICON,sentence,"");
+        sentence = t.replaceChars(REGEX_RTAT,sentence,"");
+        sentence = t.replaceChars(REGEX_EMOTICON,sentence,"");
+        sentence = t.replaceChars(REGEX_URL,sentence,"URL");
 
         //Replace emoticon bola
         sentence = sentence.replace("\\u26bd", "#emotbola");
