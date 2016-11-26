@@ -25,6 +25,15 @@ public class InformationExtraction {
     
     public InformationExtraction(String tweet) {
         this.nobarinfo = new NobarInformation();
+        this.tweet = tweet;
+    }
+    
+    public NobarInformation getNobarInfo() {
+        return this.nobarinfo;
+    }
+    
+    public String getTweet() {
+        return this.tweet;
     }
     
     public void extractMatch() {
@@ -33,7 +42,46 @@ public class InformationExtraction {
         Matcher matcher = pattern.matcher(tweet);
         
         if (matcher.find()) {
-            
+            extractedMatch = matcher.group(0);
+        } else {
+            extractedMatch = "Football Match, see Original Tweet";
         }
+        
+        nobarinfo.setMatch(extractedMatch);
+    }
+    
+    public void extractPlace() {
+        String extractedPlace;
+        
+        Pattern pattern = Pattern.compile(REGEX_MATCH);
+        Matcher matcher = pattern.matcher(tweet);
+        
+        if (matcher.find()) {
+            extractedPlace = matcher.group(0);
+        } else {
+            extractedPlace = "Place";
+        }
+        
+        nobarinfo.setMatch(extractedPlace);
+    }
+    
+    public void extractdate() {
+        String extractedDate;
+        
+        Pattern pattern = Pattern.compile(REGEX_MATCH);
+        Matcher matcher = pattern.matcher(tweet);
+        
+        if (matcher.find()) {
+            extractedDate = matcher.group(0);
+        } else {
+            extractedDate = "Place";
+        }
+        
+        nobarinfo.setMatch(extractedDate);
+    }
+    
+    public void extractAllNobarInfo() {
+        extractMatch();
+        extractPlace();
     }
 }
