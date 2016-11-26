@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  *
- * @author Ahmad
+ * @author Bayu
  */
 public class StringToWordProcessor {
     

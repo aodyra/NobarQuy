@@ -89,4 +89,29 @@ public class NobarQuy {
             result.add(record);
         }
     }
+    
+    public ArrayList<JSONObject> classifyTweetFunction(ArrayList<JSONObject> tweets) throws Exception {
+        ArrayList<JSONObject> finalJSON = new ArrayList<>();
+        List<String[]> result = new ArrayList();
+        for (JSONObject tweet : tweets) {
+            String tweet_text = tweet.get("text").toString();
+            String[] record = new String[3];
+            record[0] = tweet_text;
+            
+            String nobar = nobarClassifier.classifyUnseenData(tweet_text);
+            //System.out.println("Hasil klasifikasi: " + nobar);
+            
+            if(nobar.equals("1")) {
+                System.out.println("Nobar: " + tweet_text);
+                record[1] = "Nobar";
+                finalJSON.add(tweet);
+                //TODO: Information Extraction, save in JSON
+                
+            } else {
+                record[1] = "Bukan";
+            }
+            result.add(record);
+        }
+        return finalJSON;
+    }
 }
