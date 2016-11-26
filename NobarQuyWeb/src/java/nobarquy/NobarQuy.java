@@ -107,13 +107,17 @@ public class NobarQuy {
             
             if(nobar.equals("1")) {
                 System.out.println("Nobar: " + tweet_text);
-                record[1] = "Nobar";
-                JSONObject json = new JSONObject();
-                json.put("label","1");
-                json.put("tweet",tweet_text);
-                //TODO: Information Extraction, save in JSON
-                
-                finalJSON.add(json);
+                InformationExtraction ie = new InformationExtraction(tweet_text);
+                ie.extractAllNobarInfo();
+                if ((ie.getNobarInfo().getMatch() != null) && (ie.getNobarInfo().getPlace() != null) && (ie.getNobarInfo().getDate() != null)) {
+                    record[1] = "Nobar";
+                    JSONObject json = new JSONObject();
+                    json.put("label","1");
+                    json.put("tweet",tweet_text);
+                    //TODO: Information Extraction, save in JSON
+
+                    finalJSON.add(json);
+                }
                 
                 
             } else {
