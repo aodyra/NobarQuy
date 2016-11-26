@@ -15,12 +15,19 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author fauzanrifqy
  */
 public class TrainingPreprocess {
+    
+    public final static String REGEX_RTAT = "RT @\\S+";
+    public final static String REGEX_EMOTICON = "\\u\\S+";
+    public final static String REGEX_URL = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+   
     
     public TrainingPreprocess(){}
     
@@ -33,20 +40,28 @@ public class TrainingPreprocess {
             
             while(text.hasNextLine()){
                 String line = text.nextLine();
-                line = line.toLowerCase();
+                //line = line.toLowerCase();
                 String sentence = line;
                 String stemmed;
-                //System.out.println("original: "+sentence);
+                
+                //Hapus \n, RT @, dan emoticon
+                sentence = sentence.replace("\\n", " ");
+                //sentence = replaceChars(REGEX_RTAT,sentence,"");
+                //sentence = replaceChars(REGEX_EMOTICON,sentence,"");
+                
+                //Replace emoticon bola
+                sentence = sentence.replace("\\u26bd", "#emotbola");
+                
+                //Normalisasi
                 sentence = formalizer.normalizeSentence(sentence);
-                //System.out.println("normalized: "+sentence);
+                //Stop word elimination
                 formalizer.initStopword();
                 sentence = formalizer.deleteStopword(sentence);
-                //System.out.println("no stopword: "+sentence);
+                //Stemming
                 IndonesianStemmer stemmer = new IndonesianStemmer();
                 stemmed = stemmer.stem(sentence);
                 stemmed = stemmer.stemSentence(stemmed);
                 stemmed = stemmer.stemRepeatedWord(stemmed);
-                //System.out.println("stemmed: "+stemmed+"\n\n");
                 processedSentences.add(stemmed);
             } 
             
@@ -55,4 +70,18 @@ public class TrainingPreprocess {
         }
         return processedSentences;
     }
+    
+    public static String replaceChars (String regex, String text1, String text2){
+        String matchedString;
+        String result = text1;
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(result);
+        if(matcher.find()){
+            matchedString = matcher.group(0);
+            result = result.replace(matchedString, text2);
+        }
+        return result;
+    }
+    
+    
 }

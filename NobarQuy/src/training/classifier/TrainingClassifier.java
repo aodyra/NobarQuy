@@ -30,7 +30,7 @@ public class TrainingClassifier {
      */
     public String generateARFF() {
         
-        String arffName = "dataset3.arff";
+        String arffName = "nobar.arff";
         File fSpam = new File("nobar.txt");
         File fNotSpam = new File("bukan_nobar.txt");
         TrainingPreprocess spamPreprocess = new TrainingPreprocess();

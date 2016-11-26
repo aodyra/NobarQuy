@@ -23,6 +23,7 @@ public class Main {
     public static void main (String[] args) throws IOException, Exception {
         NobarQuy nq = new NobarQuy();
         String filename = "nobar.txt";
+        String arffFile = "dataset5.arff";
         String path = "model/nobar.model";
         
 //        WekaAccessor accessor = new WekaAccessor();

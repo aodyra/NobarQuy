@@ -42,13 +42,13 @@ public class NobarClassifier {
         trainingInstances = trainset;
     }
     
-    void buildRandomForestClassifier() throws Exception {
-        classifier = new RandomForest();
-        classifier.setNumTrees(50);
-        classifier.buildClassifier(trainingInstances);
-        WekaAccessor wk = new WekaAccessor();
-        wk.saveModel(classifier,"nobar.model");
-    }
+//    void buildRandomForestClassifier() throws Exception {
+//        classifier = new RandomForest();
+//        classifier.setNumTrees(50);
+//        classifier.buildClassifier(trainingInstances);
+//        WekaAccessor wk = new WekaAccessor();
+//        wk.saveModel(classifier,"nobar.model");
+//    }
     
     public String classifyUnseenData(String tweet) throws Exception {
         TweetPreprocessor preproses = new TweetPreprocessor();
@@ -89,12 +89,6 @@ public class NobarClassifier {
     public void loadModel() throws Exception {
         WekaAccessor wk = new WekaAccessor();
         classifier = (RandomForest) wk.loadModel("model/nobar.model");
-        //classifier = (RandomForest) SerializationHelper.read("model/modelClassifier.model");
-        
-        // Load features
-        //features = readFile("model/Complaint.features");
-        
-        //Load train data
         BufferedReader reader = new BufferedReader(new FileReader("dataset2.arff"));
         trainingInstances = new Instances(reader);
         trainingInstances.setClassIndex(trainingInstances.numAttributes() - 1);

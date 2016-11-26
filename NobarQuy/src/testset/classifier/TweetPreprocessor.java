@@ -16,13 +16,16 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import training.classifier.TrainingClassifier;
+import training.classifier.TrainingPreprocess;
 
 /**
  *
  * @author ryanyonata
  */
 public class TweetPreprocessor {
-    
+    public final static String REGEX_RTAT = "RT @\\S+";
+    public final static String REGEX_EMOTICON = "\\u\\S+";
+    public final static String REGEX_URL = "http\\S+";
     
     IndonesianSentenceFormalization formalizer = new IndonesianSentenceFormalization();
     IndonesianSentenceDetector detector = new IndonesianSentenceDetector();
@@ -31,9 +34,21 @@ public class TweetPreprocessor {
         String sentence = tweet;
         String stemmed;
         
+        //Hapus \n, RT @, dan emoticon
+        TrainingPreprocess t = new TrainingPreprocess();
+        sentence = sentence.replace("\\n", " ");
+        sentence = t.replaceChars(REGEX_RTAT,sentence,"");
+        sentence = t.replaceChars(REGEX_EMOTICON,sentence,"");
+
+        //Replace emoticon bola
+        sentence = sentence.replace("\\u26bd", "#emotbola");
+
+        //Normalisasi
         sentence = formalizer.normalizeSentence(sentence);
+        //Stop word elimination
         formalizer.initStopword();
-        sentence = formalizer.deleteStopword(sentence);        
+        sentence = formalizer.deleteStopword(sentence);
+        //Stemming
         IndonesianStemmer stemmer = new IndonesianStemmer();
         stemmed = stemmer.stem(sentence);
         stemmed = stemmer.stemSentence(stemmed);
@@ -48,7 +63,6 @@ public class TweetPreprocessor {
         Scanner text = new Scanner(file);
         while(text.hasNextLine()){
             String line = text.nextLine();
-            //System.out.println(line);
             list.add(line);
         }
         return list;
