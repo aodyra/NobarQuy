@@ -223,10 +223,10 @@ public class TwitCatStatusEater {
             System.out.println("Gagal");
             e.printStackTrace();
         }
-        for (Status s: twitter.getUserTimeline()){
+        //for (Status s: twitter.getUserTimeline()){
             // Insert the tweet
-            eatenTweets.add(new EatenTweets(s));
-        }
+        //    eatenTweets.add(new EatenTweets(s));
+        //}
         return eatenTweets;
     }
 }
