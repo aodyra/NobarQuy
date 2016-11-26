@@ -5,10 +5,20 @@
  */
 package nobarquy;
 
+import java.io.IOException;
+
 /**
  *
  * @author ryanyonata
  */
 public class Main {
+    
+    public static void main (String[] args) throws IOException, Exception {
+        NobarQuy nq = new NobarQuy();
+        String filename = "data\\nobar.txt";
+        
+        
+        nq.classifyTweetFromFile(filename);
+    }
     
 }
