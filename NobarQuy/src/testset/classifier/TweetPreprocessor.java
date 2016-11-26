@@ -8,6 +8,7 @@ package testset.classifier;
 import IndonesianNLP.IndonesianSentenceDetector;
 import IndonesianNLP.IndonesianSentenceFormalization;
 import IndonesianNLP.IndonesianStemmer;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +42,13 @@ public class TweetPreprocessor {
         return stemmed;
     }
     
-    public List<String> convertTxtToStringList(String path) {
+    public List<String> convertTxtToStringList(File file) throws FileNotFoundException {
         List<String> list = new ArrayList<>();
  
-        Scanner text = new Scanner(path);
+        Scanner text = new Scanner(file);
         while(text.hasNextLine()){
             String line = text.nextLine();
+            //System.out.println(line);
             list.add(line);
         }
         return list;

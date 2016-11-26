@@ -38,7 +38,7 @@ public class NobarClassifier {
         
         WekaAccessor accessor = new WekaAccessor();
         Instances trainset;
-        trainset = accessor.readARFF("data\\dataset2.arff");
+        trainset = accessor.readARFF("dataset2.arff");
         trainingInstances = trainset;
     }
     
@@ -56,6 +56,7 @@ public class NobarClassifier {
         
         Instance newInstance = new DenseInstance(trainingInstances.numAttributes());
         newInstance.setDataset(trainingInstances);
+        //System.out.println("attr: " + trainingInstances.numAttributes());
         for(int i=0; i<trainingInstances.numAttributes(); i++){
             if(tweet.contains(trainingInstances.attribute(i).name())) {
                 newInstance.setValue(trainingInstances.attribute(i), 1);
@@ -63,6 +64,8 @@ public class NobarClassifier {
                 newInstance.setValue(trainingInstances.attribute(i), 0);
             }
         }
+        //System.out.println("NewInstance: " + newInstance);
+        //System.out.println("NumFeatures: " + classifier.getNumFeatures());
         
         double clsLabel = classifier.classifyInstance(newInstance);
         newInstance.setClassValue(clsLabel);
@@ -84,10 +87,12 @@ public class NobarClassifier {
     }
     
     public void loadModel() throws Exception {
-        classifier = (RandomForest) SerializationHelper.read("model/modelClassifier.model");
+        WekaAccessor wk = new WekaAccessor();
+        classifier = (RandomForest) wk.loadModel("model/nobar.model");
+        //classifier = (RandomForest) SerializationHelper.read("model/modelClassifier.model");
         
         // Load features
-        features = readFile("model/Complaint.features");
+        //features = readFile("model/Complaint.features");
         
         //Load train data
         BufferedReader reader = new BufferedReader(new FileReader("dataset2.arff"));

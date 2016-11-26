@@ -45,12 +45,34 @@ public class NobarQuy {
     public void classifyTweetFromFile(String path) throws Exception {
         TweetPreprocessor tw = new TweetPreprocessor();
         List<String> nobarList = new ArrayList<>();
-        nobarList = tw.convertTxtToStringList(path);
-
-        for (String line : nobarList) {
-            String result;
-            result = nobarClassifier.classifyUnseenData(line);
-            System.out.println(result);
+        File file = new File(path);
+        nobarList = tw.convertTxtToStringList(file);
+        List<String[]> result = new ArrayList();
+        
+//        for (String line : nobarList) {
+//            String result;
+//            System.out.println("Line: " + line);
+//            result = nobarClassifier.classifyUnseenData(line);
+//            System.out.println(result);
+//        }
+        
+        
+        
+        for (int i=0; i< nobarList.size(); i++) {
+            String[] record = new String[3];
+            record[0] = nobarList.get(i);
+            
+            String nobar = nobarClassifier.classifyUnseenData(nobarList.get(i));
+            //System.out.println("Hasil klasifikasi: " + nobar);
+            
+            if(nobar.equals("1")) {
+                System.out.println("Nobar" + nobarList.get(i));
+                record[1] = "Nobar";
+                
+            } else {
+                record[1] = "Bukan";
+            }
+            result.add(record);
         }
     }
 }
