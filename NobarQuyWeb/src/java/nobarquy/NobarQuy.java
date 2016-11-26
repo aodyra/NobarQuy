@@ -108,8 +108,45 @@ public class NobarQuy {
             if(nobar.equals("1")) {
                 System.out.println("Nobar: " + tweet_text);
                 record[1] = "Nobar";
-                finalJSON.add(tweet);
+                JSONObject json = new JSONObject();
+                json.put("label","1");
+                json.put("tweet",tweet_text);
                 //TODO: Information Extraction, save in JSON
+                
+                finalJSON.add(json);
+                
+                
+            } else {
+                record[1] = "Bukan";
+            }
+            result.add(record);
+        }
+        return finalJSON;
+    }
+    
+    public ArrayList<JSONObject> classifyTweetFromFile2 (String path) throws Exception {
+        ArrayList<JSONObject> finalJSON = new ArrayList<>();
+        TweetPreprocessor tw = new TweetPreprocessor();
+        List<String> nobarList = new ArrayList<>();
+        File file = new File(path);
+        nobarList = tw.convertTxtToStringList(file);
+        List<String[]> result = new ArrayList();
+        
+        for (int i=0; i< nobarList.size(); i++) {
+            String[] record = new String[3];
+            record[0] = nobarList.get(i);
+            
+            String nobar = nobarClassifier.classifyUnseenData(nobarList.get(i));
+            //System.out.println("Hasil klasifikasi: " + nobar);
+            
+            if(nobar.equals("1")) {
+                System.out.println("Nobar" + nobarList.get(i));
+                record[1] = "Nobar";
+                JSONObject json = new JSONObject();
+                json.put("label","1");
+                json.put("tweet",nobarList.get(i));
+                //InformationExtraction
+                finalJSON.add(json);
                 
             } else {
                 record[1] = "Bukan";
